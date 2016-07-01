@@ -1,0 +1,42 @@
+http.createServer(function(requset,response){
+response.writeHeader(200);
+response.on('data',function(chunk){
+console.log(chunk.toString());});
+request.on('end',function(){
+response.end();});
+}).listen(8080);
+
+http.createServer(function(requset,response){
+response.writeHeader(200);
+request.pipe(response);
+}).listen(8080);
+curl -d 'hello' 
+
+
+var fs = require('fs');
+var file = fs.createReadStream("readme.md");
+var newFile=fs.createWriteStream("readme_copy.md");
+file.pipe(newFile);
+
+var fs = require('fs);
+var http=require('http');
+
+http.createServer(function(requset,response){
+var newFile=fs.createWriteStream("readme_copy.md");
+request.pipe(newFile);
+request.on('end',function(){
+response.end()});
+}).listen(8080);
+
+----precentage---
+http.createServer(function(request,response){
+var newFile=fs.createWriteStream("readme_copy.md");
+var fileBytes=request.headers['content.length'];
+var uploadedBytes=0;
+requset.pipe(newFile);
+requset.on('data',function(chunk){
+uploadedBytes+=chunk.length;
+var progress=(uploadedBytes/fileBytes)*100;
+response.write("progress:" +parseInt(progress,10)+"%\n");
+});
+}).listen(8080);
